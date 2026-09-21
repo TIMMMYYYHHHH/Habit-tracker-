@@ -8,6 +8,9 @@ data class Habit(
     @PrimaryKey val id: String = java.util.UUID.randomUUID().toString(),
     val title: String,
     val emoji: String = "✓",
+    val description: String = "",
+    val frequency: String = "Daily",
+    val reminderMinutes: Int? = null,
     val color: Long = 0xFF6750A4,
     val createdAt: Long = System.currentTimeMillis(),
     val archived: Boolean = false
@@ -23,6 +26,7 @@ data class Task(
     val parentId: String? = null,
     val priority: Int = 1,
     val dueAt: Long? = null,
+    val reminderMinutes: Int? = null,
     val tags: String = "",
     val completed: Boolean = false,
     val createdAt: Long = System.currentTimeMillis()
