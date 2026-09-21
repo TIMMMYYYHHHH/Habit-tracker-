@@ -21,13 +21,13 @@ interface AppDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun upsertTask(task: Task)
 }
 
-@Database(entities = [Habit::class, HabitCompletion::class, Task::class], version = 1, exportSchema = false)
+@Database(entities = [Habit::class, HabitCompletion::class, Task::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun dao(): AppDao
     companion object {
         @Volatile private var INSTANCE: AppDatabase? = null
         fun get(context: Context): AppDatabase = INSTANCE ?: synchronized(this) {
-            INSTANCE ?: Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "habit-tracker.db").build().also { INSTANCE = it }
+            INSTANCE ?: Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "habit-tracker.db").fallbackToDestructiveMigration().build().also { INSTANCE = it }
         }
     }
 }
