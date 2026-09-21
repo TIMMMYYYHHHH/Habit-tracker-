@@ -24,7 +24,7 @@ class MainActivity:ComponentActivity(){override fun onCreate(savedInstanceState:
  var dark by remember{mutableStateOf(false)};var tab by remember{mutableIntStateOf(0)}
  MaterialTheme(colorScheme=if(dark)darkColorScheme()else lightColorScheme()){Scaffold(
  topBar={TopAppBar(title={Text(listOf("Today","Habits","Tasks","Progress")[tab],fontWeight=FontWeight.Bold)},actions={IconButton({dark=!dark}){Icon(if(dark)Icons.Default.LightMode else Icons.Default.DarkMode,null)}})},
- bottomBar={NavigationBar{listOf("Today" to Icons.Default.Today,"Habits" to Icons.Default.CheckCircle,"Tasks" to Icons.Default.List,"Progress" to Icons.Default.BarChart).forEachIndexed{i,p->NavigationBarItem(tab==i,{tab=i},{Icon(p.second,null)},{Text(p.first)})}}}
+ bottomBar={NavigationBar{listOf("Today" to Icons.Default.Today,"Habits" to Icons.Default.CheckCircle,"Tasks" to Icons.Default.List,"Progress" to Icons.Default.BarChart).forEachIndexed{i,p->NavigationBarItem(selected=tab==i,onClick={tab=i},icon={Icon(p.second,null)},label={Text(p.first)})}}}
  ){pad->Box(Modifier.padding(pad)){when(tab){0->Today(vm);1->Habits(vm);2->Tasks(vm);else->Progress(vm)}}}}
 }
 @Composable fun Today(vm:MainViewModel){
